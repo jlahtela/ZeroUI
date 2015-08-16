@@ -9,5 +9,3 @@ Planned features:
 - Relocating bars
 - Buff / debuffs visible
 - All bars always visible
-
---test
