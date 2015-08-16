@@ -7,6 +7,7 @@ function ZeroUI:Initialize()
 self.inCombat = IsUnitInCombat("player")
 EVENT_MANAGER:RegisterForEvent(self.name, EVENT_PLAYER_COMBAT_STATE, self.OnPlayerCombatState)
 
+--Always show attribute bars
 PLAYER_ATTRIBUTE_BARS:ForceShow(yes)
 
 end
@@ -20,17 +21,15 @@ end
 EVENT_MANAGER:RegisterForEvent(ZeroUI.name, EVENT_ADD_ON_LOADED, ZeroUI.OnAddOnLoaded)
 
 function ZeroUI.OnPlayerCombatState(event, inCombat)
-  -- The ~= operator is "not equal to" in Lua.
+--Check if is in combat
   if inCombat ~= ZeroUI.inCombat then
-    -- The player's state has changed. Update the stored state...
     ZeroUI.inCombat = inCombat
- 
-    -- ...and then announce the change.
     if inCombat then
+		--If in combat make actions here
+		--Add message to chat that entering to combat
       d("Entering combat.")
-	 ZO_PlayerAttributeBar:ResetFadeOutDelay() 
-
     else
+		--when exits combat
       d("Exiting combat.")
     end
  
