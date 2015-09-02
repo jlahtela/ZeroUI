@@ -1,7 +1,7 @@
 ## APIVersion: 100012
 ## Title: ZeroUI
 ## Description:
-## Version: Z0.0.1
+## Version: Z0.0.3
 ## Author: jlahtela
 ## DependsOn: LibAddonMenu-2.0
 
