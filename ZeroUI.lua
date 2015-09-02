@@ -1,12 +1,9 @@
 
 ZeroUI = {}
-
 ZeroUI.name = "ZeroUI"
 
-function ZeroUI:Initialize()
 
---ZeroUI menu to settings
---.EVENT_MANAGER:RegisterForEvent("ZeroUI_OnLoad", EVENT_ADD_ON_LOADED, OnLoad)
+function ZeroUI:Initialize()
 
 --if is in combat function
 self.inCombat = IsUnitInCombat("player")
@@ -27,7 +24,7 @@ function ZeroUI.OnAddOnLoaded(event, addonName)
 	name = "ZeroUI",
 	displayName = "ZeroUI",
 	author = "jlahtela",
-	version = "0.0.2",
+	version = "0.0.4",
 	slashCommand = "/ZeroUI",	--(optional) will register a keybind to open to this panel
 	registerForRefresh = true,	--boolean (optional) (will refresh all options controls when a setting is changed and when the panel is shown)
 	registerForDefaults = true,	--boolean (optional) (will set all options controls back to default values)
