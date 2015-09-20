@@ -4,6 +4,7 @@
 ## Version: 0.0.3
 ## Author: jlahtela
 ## OptionalDependsOn: LibAddonMenu-2.0
+## SavedVariables: ZeroUIConfig
 
 Libs/LibStub/LibStub.lua
 Libs/LibAddonMenu-2.0/LibAddonMenu-2.0.lua
