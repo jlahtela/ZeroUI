@@ -1,20 +1,25 @@
 
 ZeroUI = {}
 ZeroUI.name = "ZeroUI"
-
+ZeroUI.version = 1.0
+ZeroUI.defaults = {
+	showAttributes = true,
+	showCombat = true,
+}
 
 function ZeroUI:Initialize()
---Saved variables
-self.ZUIConfig = ZO_SavedVars:New("ZeroUISettings", 1, nil, {})
 
 --if is in combat function
 self.inCombat = IsUnitInCombat("player")
-EVENT_MANAGER:RegisterForEvent(self.name, EVENT_PLAYER_COMBAT_STATE, self.OnPlayerCombatState)
 
-ZeroUI.ZeroUISettings.ShowAttributes = 1
+if ZeroUI.ZUIConfig.showCombat == true then
+EVENT_MANAGER:RegisterForEvent(self.name, EVENT_PLAYER_COMBAT_STATE, self.OnPlayerCombatState)
+end
 
 --Always show attribute bars
+if ZeroUI.ZUIConfig.showAttributes == true then
 PLAYER_ATTRIBUTE_BARS:ForceShow(yes)
+end
 
 --buff event
 --EVENT_MANAGER:RegisterForEvent(1, EVENT_EFFECT_CHANGED, self.BuffEffectChanged)
@@ -23,7 +28,10 @@ end
 
 function ZeroUI.OnAddOnLoaded(event, addonName)
 	if addonName == ZeroUI.name then
-	
+		
+		--use settings
+		ZeroUI.ZUIConfig = ZO_SavedVars:New("ZeroUIConfig", ZeroUI.version, nil, ZeroUI.defaults)
+		
 		local LAM2 = LibStub("LibAddonMenu-2.0")
 		--Menu settings starts here
 		local panelData = {
@@ -31,7 +39,7 @@ function ZeroUI.OnAddOnLoaded(event, addonName)
 			name = "ZeroUI",
 			displayName = "ZeroUI",
 			author = "jlahtela",
-			version = "0.0.4",
+			version = ZeroUI.version,
 			slashCommand = "/ZeroUI",	--(optional) will register a keybind to open to this panel
 			registerForRefresh = true,	--boolean (optional) (will refresh all options controls when a setting is changed and when the panel is shown)
 			registerForDefaults = true,	--boolean (optional) (will set all options controls back to default values)
@@ -44,15 +52,28 @@ function ZeroUI.OnAddOnLoaded(event, addonName)
 				name = "User Interface",
 			},
 			[2] = {
+				type = "checkbox",
+				name = "Show attributes",
+				getFunc = function() return ZeroUI.ZUIConfig.showAttributes end,
+				setFunc = function(newValue) ZeroUI.ZUIConfig.showAttributes = newValue; end,
+				default = ZeroUI.defaults.showAttributes,
+				warning = "To apply settings reloadui is required!",
+			},
+			[3] = {
 				type = "header",
 				name = "Combat events",
+			},
+			[4] = {
+				type = "checkbox",
+				name = "Show combat status messages",
+				getFunc = function() return ZeroUI.ZUIConfig.showCombat end,
+				setFunc = function(newValue) ZeroUI.ZUIConfig.showCombat = newValue; end,
+				default = ZeroUI.defaults.showCombat,
+				warning = "To apply settings reloadui is required!",
 			},
 		}
 		LAM2:RegisterOptionControls("ZeroUI_OptionsPanel", optionsTable)
 	
-
-	
-
 		ZeroUI:Initialize()
 	end
 end
@@ -85,5 +106,4 @@ end
 	--PLAYER_ATTRIBUTE_BARS:ForceShow(yes)
 
 --end
-
 
